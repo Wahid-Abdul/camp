@@ -58,17 +58,27 @@ angular.module('starter.controllers', [])
     });
 
     $scope.friends = [
-        { name: 'John', age: 25, gender: 'boy' },
-        { name: 'Jessie', age: 30, gender: 'girl' },
-        { name: 'Johanna', age: 28, gender: 'girl' },
-        { name: 'Joy', age: 15, gender: 'girl' },
-        { name: 'Mary', age: 28, gender: 'girl' },
-        { name: 'Peter', age: 95, gender: 'boy' },
-        { name: 'Sebastian', age: 50, gender: 'boy' },
-        { name: 'Erika', age: 27, gender: 'girl' },
-        { name: 'Patrick', age: 40, gender: 'boy' },
-        { name: 'Samantha', age: 60, gender: 'girl' }
+        { name: 'John', age: 25, gender: 'boy', number: 9894250259 },
+        { name: 'Jessie', age: 30, gender: 'girl', number: 9894250259 },
+        { name: 'Johanna', age: 28, gender: 'girl', number: 9894250259 },
+        { name: 'Joy', age: 15, gender: 'girl', number: 9894250259 },
+        { name: 'Mary', age: 28, gender: 'girl', number: 9894250259 },
+        { name: 'Peter', age: 95, gender: 'boy', number: 9894250259 }
     ];
+
+    $scope.CallNumber = function(inp) {
+
+        // var number = inp;
+        window.plugins.CallNumber.callNumber(function() {
+            //success logic goes here
+            console.log("success");
+        }, function() {
+            console.log("error");
+            //error logic goes here
+        }, inp, true)
+
+    };
+
 })
 
 .controller('HomeCtrl', function($scope) {

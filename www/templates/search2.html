@@ -7,7 +7,10 @@
         <div class="card">
             <ul>
                 <div class="" ng-repeat="friend in friends">
-                    <li> {{friend.name}} {{friend.age}}</li>
+                    <li> {{friend.name}} {{friend.age}}
+                        <button ng-click="CallNumber({{friend.number}})" class="button button-energized ">call</button>
+                        <!--<button class="button" ng-href="{{friend.number}}">calllll</button>-->
+                    </li>
                 </div>
             </ul>
         </div>
