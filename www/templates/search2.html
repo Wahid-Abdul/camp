@@ -4,6 +4,13 @@
         <div style="height: 300px;width:300px;border:2px solid red;text-align: center">
             <div id="map" data-tap-disabled="true" style="height: 100%;width:100%"></div>
         </div>
+        <div class="card">
+            <ul>
+                <div class="" ng-repeat="friend in friends">
+                    <li> {{friend.name}} {{friend.age}}</li>
+                </div>
+            </ul>
+        </div>
     </ion-content>
 </ion-view>
 
