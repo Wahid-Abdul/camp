@@ -1,5 +1,7 @@
 angular.module('starter.controllers', [])
 
+
+
 .controller('AppCtrl', function($scope, $ionicModal, $timeout) {
 
     // With the new view caching in Ionic, Controllers are only called
@@ -39,6 +41,21 @@ angular.module('starter.controllers', [])
             $scope.closeLogin();
         }, 1000);
     };
+})
+
+.controller('MapCtrl', function($scope) {
+    var uluru = {
+        lat: 13.2984920,
+        lng: 80.1484450
+    };
+    var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 10,
+        center: uluru
+    });
+    var marker = new google.maps.Marker({
+        position: uluru,
+        map: map
+    });
 })
 
 .controller('HomeCtrl', function($scope) {
