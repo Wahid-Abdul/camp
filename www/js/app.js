@@ -55,7 +55,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
             url: '/post',
             views: {
                 'menuContent': {
-                    templateUrl: 'templates/post.html'
+                    templateUrl: 'templates/post.html',
+                    controller: 'PostCtrl'
                 }
             }
         })

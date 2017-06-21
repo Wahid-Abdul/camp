@@ -350,8 +350,23 @@
                <input type="text" placeholder="abdul@hk.com">
             </label>
         </div>
-        <button class="button button-block button-positive">
+
+
+        <div class="card" ng-show="pictureBool" ng-show="pictureBool">
+            <div class="item item-image">
+                <img ng-src="{{pictureUrl}}" id="myImage" style="background-size:100%;border:1px solid red  ">
+            </div>
+        </div>
+
+
+        <!-- Button to take picture -->
+        <div class="padding row">
+            <button ng-click="takePicture()" class="button button-full button-calm col col-100 " style="border-radius:24px">Take a Photo</button>
+        </div>
+
+        <button class="button button-block button-positive" ng-click="showAlert()"> 
                 Register
-            </button>
+        </button>
+
     </ion-content>
 </ion-view>

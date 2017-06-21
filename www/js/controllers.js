@@ -43,27 +43,49 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('MapCtrl', function($scope) {
-    var uluru = {
-        lat: 13.2984920,
-        lng: 80.1484450
+.controller('MapCtrl', function($scope, $state, $stateParams) {
+
+    var uluru2 = {
+        lat: 2.2434,
+        lng: 0.21223
     };
     var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 10,
-        center: uluru
+        zoom: 5,
+        center: uluru2
     });
     var marker = new google.maps.Marker({
-        position: uluru,
+        position: uluru2,
         map: map
     });
 
+
+
+    $scope.plotter = function(a, b) {
+        $scope.latitude = a;
+        $scope.longitude = b;
+        var uluru = {
+            lat: $scope.latitude,
+            lng: $scope.longitude
+        };
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 5,
+            center: uluru
+        });
+        var marker = new google.maps.Marker({
+            position: uluru,
+            map: map
+        });
+
+    }
+
+
     $scope.friends = [
-        { name: 'John', age: 25, gender: 'boy', number: 9894250259 },
-        { name: 'Jessie', age: 30, gender: 'girl', number: 9894250259 },
-        { name: 'Johanna', age: 28, gender: 'girl', number: 9894250259 },
-        { name: 'Joy', age: 15, gender: 'girl', number: 9894250259 },
-        { name: 'Mary', age: 28, gender: 'girl', number: 9894250259 },
-        { name: 'Peter', age: 95, gender: 'boy', number: 9894250259 }
+        { name: 'John', age: 25, gender: 'boy', number: 9894250259, mylat: 12.12122, mylong: 233.1221 },
+        { name: 'Jessie', age: 30, gender: 'girl', number: 9894250259, mylat: 21.12122, mylong: 5.1221 },
+        { name: 'Johanna', age: 28, gender: 'girl', number: 9894250259, mylat: 12.1232122, mylong: 6.1221 },
+        { name: 'Joy', age: 15, gender: 'girl', number: 9894250259, mylat: 12.456456122, mylong: 23.1221 },
+        { name: 'Mary', age: 28, gender: 'girl', number: 9894250259, mylat: 2.12122, mylong: 21.1221 },
+        { name: 'Peter', age: 95, gender: 'boy', number: 9894250259, mylat: 1.12122, mylong: 2.1221 }
     ];
 
     $scope.CallNumber = function(inp) {
@@ -79,10 +101,52 @@ angular.module('starter.controllers', [])
 
     };
 
-})
 
-.controller('HomeCtrl', function($scope) {
 
 
 
 })
+
+.controller('PostCtrl', function($scope, $cordovaCamera, $ionicPopup) {
+
+        $scope.pictureBool = false;
+        $scope.takePicture = function() {
+
+            $cordovaCamera.getPicture({
+                quality: 50,
+                destinationType: Camera.DestinationType.DATA_URL,
+                sourceType: Camera.PictureSourceType.CAMERA,
+                allowEdit: true,
+                encodingType: Camera.EncodingType.JPEG,
+                targetWidth: 300,
+                targetHeight: 300,
+                popoverOptions: CameraPopoverOptions,
+                saveToPhotoAlbum: true,
+                correctOrientation: true
+            }).then(function(imageData) {
+                $scope.pictureBool = true;
+                var image = document.getElementById('myImage');
+                image.src = "data:image/jpeg;base64," + imageData;
+
+
+            }, function(err) {
+                console.log(err)
+            });
+            console.log("success")
+        };
+        $scope.showAlert = function() {
+            var alertPopup = $ionicPopup.alert({
+                title: 'Don\'t eat that!',
+                template: 'It might taste good'
+            });
+            alertPopup.then(function(res) {
+                console.log('Thank you for not eating my delicious ice cream cone');
+            });
+        };
+
+    })
+    .controller('HomeCtrl', function($scope) {
+
+
+
+    });
