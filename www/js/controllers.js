@@ -136,8 +136,8 @@ angular.module('starter.controllers', [])
         };
         $scope.showAlert = function() {
             var alertPopup = $ionicPopup.alert({
-                title: 'Don\'t eat that!',
-                template: 'It might taste good'
+                title: 'Thank you',
+                template: "&nbsp;&nbsp;&nbsp;Your camp has been recorded"
             });
             alertPopup.then(function(res) {
                 console.log('Thank you for not eating my delicious ice cream cone');
