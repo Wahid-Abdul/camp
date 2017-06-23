@@ -43,7 +43,8 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('MapCtrl', function($scope, $state, $stateParams) {
+.controller('SearchCtrl', function($scope, $state, $stateParams) {
+    $scope.mapBool = true
 
     var uluru2 = {
         lat: 2.2434,
@@ -53,10 +54,10 @@ angular.module('starter.controllers', [])
         zoom: 5,
         center: uluru2
     });
-    var marker = new google.maps.Marker({
-        position: uluru2,
-        map: map
-    });
+    // var marker = new google.maps.Marker({
+    //     position: uluru2,
+    //     map: map
+    // });
 
 
 
@@ -80,12 +81,14 @@ angular.module('starter.controllers', [])
 
 
     $scope.friends = [
-        { name: 'John', age: 25, gender: 'boy', number: 9894250259, mylat: 12.12122, mylong: 233.1221 },
-        { name: 'Jessie', age: 30, gender: 'girl', number: 9894250259, mylat: 21.12122, mylong: 5.1221 },
-        { name: 'Johanna', age: 28, gender: 'girl', number: 9894250259, mylat: 12.1232122, mylong: 6.1221 },
-        { name: 'Joy', age: 15, gender: 'girl', number: 9894250259, mylat: 12.456456122, mylong: 23.1221 },
-        { name: 'Mary', age: 28, gender: 'girl', number: 9894250259, mylat: 2.12122, mylong: 21.1221 },
-        { name: 'Peter', age: 95, gender: 'boy', number: 9894250259, mylat: 1.12122, mylong: 2.1221 }
+        { name: 'John', age: 25, gender: 'boy', number: 9894250259, mylat: 12.12122, mylong: 233.1221, address: 'The Business Centre 61 Wellfield Road Roath Cardiff CF24 3DG' },
+        { name: 'Jessie', age: 30, gender: 'girl', number: 9894250259, mylat: 21.12122, mylong: 5.1221, address: 'The Business Centre 61 Wellfield Road Roath Cardiff CF24 3DG' },
+        { name: 'Johanna', age: 28, gender: 'girl', number: 9894250259, mylat: 12.1232122, mylong: 6.1221, address: 'The Business Centre 61 Wellfield Road Roath Cardiff CF24 3DG' },
+        { name: 'Joy', age: 15, gender: 'girl', number: 9894250259, mylat: 12.456456122, mylong: 23.1221, address: 'The Business Centre 61 Wellfield Road Roath Cardiff CF24 3DG' },
+        { name: 'Mary', age: 28, gender: 'girl', number: 9894250259, mylat: 2.12122, mylong: 21.1221, address: 'The Business Centre 61 Wellfield Road Roath Cardiff CF24 3DG' },
+        { name: 'Peter', age: 95, gender: 'boy', number: 9894250259, mylat: 1.12122, mylong: 2.1221, address: 'The Business Centre 61 Wellfield Road Roath Cardiff CF24 3DG' },
+        { name: 'Peter', age: 95, gender: 'boy', number: 9894250259, mylat: 1.12122, mylong: 2.1221, address: 'The Business Centre 61 Wellfield Road Roath Cardiff CF24 3DG' },
+        { name: 'Peter', age: 95, gender: 'boy', number: 9894250259, mylat: 1.12122, mylong: 2.1221, address: 'The Business Centre 61 Wellfield Road Roath Cardiff CF24 3DG' }
     ];
 
     $scope.CallNumber = function(inp) {
@@ -101,11 +104,15 @@ angular.module('starter.controllers', [])
 
     };
 
+    $scope.mapbool = function() {
+        $scope.mapBool = false;
+    }
 
 
 
 
 })
+
 
 .controller('PostCtrl', function($scope, $cordovaCamera, $ionicPopup) {
 

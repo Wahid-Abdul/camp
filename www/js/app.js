@@ -36,7 +36,8 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
             url: '/search',
             views: {
                 'menuContent': {
-                    templateUrl: 'templates/search.html'
+                    templateUrl: 'templates/search.html',
+                    controller: 'SearchCtrl'
                 }
             }
         })
@@ -46,7 +47,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova'])
                 'menuContent': {
 
                     templateUrl: 'templates/search2.html',
-                    controller: 'MapCtrl'
+
                 }
             }
         })
