@@ -152,8 +152,16 @@ angular.module('starter.controllers', [])
         };
 
     })
-    .controller('HomeCtrl', function($scope) {
-
+    .controller('HomeCtrl', function($scope, $cordovaOauth) {
+        $scope.facebookLogin = function() {
+            $cordovaOauth.facebook("1603759056570891", ["email"]).then(function(result) {
+                $scope.data = result.access_token;
+                // results
+            }, function(error) {
+                // error
+                console.log("Error Message " + error);
+            });
+        }
 
 
     });
