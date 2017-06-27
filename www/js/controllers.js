@@ -152,16 +152,43 @@ angular.module('starter.controllers', [])
         };
 
     })
-    .controller('HomeCtrl', function($scope, $cordovaOauth) {
+    .controller('HomeCtrl', function($scope, $cordovaOauth, $http) {
+        $scope.first = "";
         $scope.facebookLogin = function() {
-            $cordovaOauth.facebook("1603759056570891", ["email"]).then(function(result) {
-                $scope.data = result.access_token;
-                // results
-            }, function(error) {
-                // error
-                console.log("Error Message " + error);
-            });
+                $cordovaOauth.facebook("1696400467327617", ["email"]).then(function(result) {
+                    $scope.data = result.access_token;
+                    // results
+                }, function(error) {
+                    // error
+                    console.log("Error Message " + error);
+                });
+            }
+            // var url =;
+        $scope.getReq = function() {
+            $http.get('https://camp-search.herokuapp.com/')
+                .success(function(status) {
+                    //your code when success
+                    console.log(status.Message)
+                    $scope.first = status.Message
+                })
+                .error(function(status) {
+                    //your code when fails
+                    console.log("wahid")
+                });
+            // $http.post("/check.json", { name: 'wahid' });
+            $http({
+                    url: 'check.json',
+                    method: "POST",
+                    data: { name: 'wahid' }
+                })
+                .then(function(response) {
+                        // success
+                        console.log("success")
+                    },
+                    function(response) { // optional
+                        // failed
+                        console.log("Failureee:     " + response.data)
+                        $scope.first = response.data
+                    });
         }
-
-
     });

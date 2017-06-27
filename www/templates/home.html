@@ -1,26 +1,32 @@
 <ion-view view-title="Home">
-    <ion-content style="margin :0 auto;">
-        <div class="card">
+    <ion-content style="margin :0 auto;padding-top:20vh;">
+        <div class="card" style="box-shadow:0px 10px 80px rgba(47,79,79,0.5),0px 0px 40px rgba(9,61,111,0.2) inset;border-radius: 10% ">
             <div class="title " style="text-align: center;font-weight: bold" style="margin-top: 30%">
                 Know about camp
             </div>
             <br>
             <a ng-href="#/app/search" style="text-decoration: none">
-                <button class="button button-block button-calm ">
-                    SEARCH
-                </button>
+                <button class="button button-block button-calm " style="width: 90%;margin-left: 5%">SEARCH</button>
+
             </a>
+
             <br>
 
             <a ng-href="#/app/post" style="text-decoration: none">
-                <button class="button button-block button-balanced ">
+                <button class="button button-block button-balanced " style="width: 90%;margin-left: 5%">
                     POST
                 </button>
             </a>
-            <button id="login-button10" class="button button-calm  button-block icon-left ion-social-facebook" ng-click="facebookLogin()">Login
-        with Facebook
-      </button>
+            <button id="login-button10" class="button button-positive  button-block icon-left ion-social-facebook" ng-click="facebookLogin()" style="width: 90%;margin-left: 5%">Login
+                with Facebook
+            </button>
+
+
+            <button class="button button-block button-calm " ng-click="getReq()" style="width: 90%;margin-left: 5%">
+                    Json print
+                </button>
+            <br><br>
         </div>
-        {{data}}
+        {{data}} {{first}}
     </ion-content>
 </ion-view>
