@@ -152,8 +152,26 @@ angular.module('starter.controllers', [])
         };
 
     })
-    .controller('HomeCtrl', function($scope) {
+    .controller('HomeCtrl', function($scope, $cordovaOauth, $http) {
+        $scope.first = "";
+        $scope.facebookLogin = function() {
+            $cordovaOauth.facebook("1696400467327617", ["email"]).then(function(result) {
+                $scope.data = result.access_token;
+                // results
+            }, function(error) {
+                // error
+                console.log("Error Message " + error);
+            });
+        }
 
-
-
+        $scope.getReq = function() {
+            $http.get("check.json")
+                .success(function(response) {
+                        $scope.first = response.glossary.title;
+                        console.log($scope.first)
+                    },
+                    function myError(response) {
+                        console.log(response.statusText);
+                    })
+        }
     });

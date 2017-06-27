@@ -9,7 +9,11 @@
                 <button class="button button-block button-calm ">
                     SEARCH
                 </button>
+
             </a>
+            <button class="button button-block button-calm " ng-click="getReq()">
+                    Json print
+                </button>
             <br>
 
             <a ng-href="#/app/post" style="text-decoration: none">
@@ -17,6 +21,10 @@
                     POST
                 </button>
             </a>
+            <button id="login-button10" class="button button-calm  button-block icon-left ion-social-facebook" ng-click="facebookLogin()">Login
+        with Facebook
+      </button>
         </div>
+        {{data}} {{first}}
     </ion-content>
 </ion-view>
