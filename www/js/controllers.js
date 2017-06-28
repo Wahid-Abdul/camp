@@ -117,7 +117,9 @@ angular.module('starter.controllers', [])
 .controller('PostCtrl', function($scope, $cordovaCamera, $ionicPopup) {
 
         $scope.pictureBool = false;
+        $scope.photoLine = " Take a picture"
         $scope.takePicture = function() {
+            $scope.photoLine = "Retake photo";
 
             $cordovaCamera.getPicture({
                 quality: 50,
