@@ -30,6 +30,18 @@
             <div style="height: 40vh;width:100vw">
                 <div id="map" data-tap-disabled="true" style="height: 100%;width:100%"></div>
             </div>
+
+            <!--<input type="" ng-model="crop" style="width: 100%">-->
+            <div class="bar bar-header item-input-inset">
+                <label class="item-input-wrapper">
+                 <i class="icon ion-ios-search placeholder-icon"></i>
+                <input type="search" placeholder="Search" ng-model="crop">
+                </label>
+                <!--<button class="button button-clear">
+                    Cancel
+                </button>-->
+            </div>
+
             <div class="card" style="overflow: scroll;height: 50vh;width:100%">
 
                 <!--<div class="" ng-repeat="friend in friends">
@@ -39,12 +51,18 @@
                        
                     </li>
                 </div>-->
-                <ion-list ng-repeat="friend in friends">
-                    <ion-item class="card">
-                        <span style="font-weight: bold"> {{friend.name}} </span> <span ng-click="CallNumber({{friend.number}})" style="cursor:pointer;background-color: aqua">call</span>
-                        <span class="ion-android-locate" ng-click="plotter({{friend.mylat}},{{friend.mylong}})" style="cursor:pointer"></span><br>
-                        <address style="white-space:normal"> {{friend.address}}</address>
-                    </ion-item>
+
+                <ion-list style="padding-left:10%;padding-right: 10%;text-align: center">
+                    <section style="cursor:pointer">
+                        <ion-item class="card" ng-repeat="friend in friends | filter:crop">
+                            <span style="font-weight: bold" class="item item-divider"> {{friend.name}} </span><br>
+                            <address style="white-space:normal" ng-click="showAlert()"> {{friend.address}}</address>
+                            <div class="row">
+                                <span class="col ion-iphone" ng-click="CallNumber({{friend.number}})" style="background-color: rgba(0,0,255,0.3)">Call</span>
+                                <span class="ion-android-locate col" ng-click="plotter({{friend.mylat}},{{friend.mylong}})" style="cursor:pointer;background-color:rgba(0,255,0,0.4) ">Plot on map</span>
+                            </div>
+                        </ion-item>
+                    </section>
                 </ion-list>
             </div>
         </div>

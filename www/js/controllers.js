@@ -43,7 +43,7 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('SearchCtrl', function($scope, $state, $stateParams) {
+.controller('SearchCtrl', function($scope, $state, $stateParams, $ionicPopup) {
     $scope.mapBool = true
 
     var uluru2 = {
@@ -104,9 +104,21 @@ angular.module('starter.controllers', [])
 
     };
 
+
+
     $scope.mapbool = function() {
         $scope.mapBool = false;
-    }
+    };
+
+    $scope.showAlert = function() {
+        var alertPopup = $ionicPopup.alert({
+            title: 'Thank you',
+            // templateUrl: "../templates/camp_details.html"
+        });
+        alertPopup.then(function(res) {
+            console.log('pop up not working');
+        });
+    };
 
 
 
@@ -149,7 +161,7 @@ angular.module('starter.controllers', [])
                 template: "&nbsp;&nbsp;&nbsp;Your camp has been recorded"
             });
             alertPopup.then(function(res) {
-                console.log('Thank you for not eating my delicious ice cream cone');
+                console.log('pop up failure');
             });
         };
 

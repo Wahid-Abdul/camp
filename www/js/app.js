@@ -33,15 +33,23 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'ngCordo
     })
 
     .state('app.search', {
-        url: '/search',
-        views: {
-            'menuContent': {
-                templateUrl: 'templates/search.html',
-                controller: 'SearchCtrl'
+            url: '/search',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/search.html',
+                    controller: 'SearchCtrl'
+                }
             }
-        }
-    })
-
+        })
+        .state('app.camp_details', {
+            url: '/camp_details',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/camp_details.html',
+                    controller: 'SearchCtrl'
+                }
+            }
+        })
 
     .state('app.post', {
             url: '/post',
