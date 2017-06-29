@@ -44,7 +44,17 @@ angular.module('starter.controllers', [])
 })
 
 .controller('SearchCtrl', function($scope, $state, $stateParams, $ionicPopup) {
-    $scope.mapBool = true
+    $scope.mapBool = true;
+    // $http.get('https://camp-search.herokuapp.com/')
+    //     .success(function(status) {
+    //         //your code when success
+    //         console.log(status.Message)
+    //         $scope.friends = status.Message
+    //     })
+    //     .error(function(status) {
+    //         //your code when fails
+    //         console.log("Loding JSON failed:" + status)
+    //     });
 
     var uluru2 = {
         lat: 2.2434,
@@ -108,6 +118,7 @@ angular.module('starter.controllers', [])
 
     $scope.mapbool = function() {
         $scope.mapBool = false;
+
     };
 
     $scope.showAlert = function() {
@@ -126,36 +137,105 @@ angular.module('starter.controllers', [])
 })
 
 
-.controller('PostCtrl', function($scope, $cordovaCamera, $ionicPopup) {
+.controller('PostCtrl', function($scope, $cordovaCamera, $ionicPopup, $cordovaGeolocation, $ionicLoading, $ionicPlatform) {
 
-        $scope.pictureBool = false;
+        // $scope.pictureBool = false;
         $scope.photoLine = " Take a picture"
-        $scope.takePicture = function() {
-            $scope.photoLine = "Retake photo";
+            // $scope.takePicture = function() {
+            //     $scope.photoLine = "Retake photo";
 
-            $cordovaCamera.getPicture({
-                quality: 50,
-                destinationType: Camera.DestinationType.DATA_URL,
-                sourceType: Camera.PictureSourceType.CAMERA,
-                allowEdit: true,
-                encodingType: Camera.EncodingType.JPEG,
-                targetWidth: 300,
-                targetHeight: 300,
-                popoverOptions: CameraPopoverOptions,
-                saveToPhotoAlbum: true,
-                correctOrientation: true
-            }).then(function(imageData) {
-                $scope.pictureBool = true;
-                var image = document.getElementById('myImage');
-                image.src = "data:image/jpeg;base64," + imageData;
+        //     $cordovaCamera.getPicture({
+        //         quality: 50,
+        //         destinationType: Camera.DestinationType.DATA_URL,
+        //         sourceType: Camera.PictureSourceType.CAMERA,
+        //         allowEdit: true,
+        //         encodingType: Camera.EncodingType.JPEG,
+        //         targetWidth: 300,
+        //         targetHeight: 300,
+        //         popoverOptions: CameraPopoverOptions,
+        //         saveToPhotoAlbum: true,
+        //         correctOrientation: true
+        //     }).then(function(imageData) {
+        //         $scope.pictureBool = true;
+        //         var image = document.getElementById('myImage');
+        //         image.src = "data:image/jpeg;base64," + imageData;
 
 
-            }, function(err) {
-                console.log(err)
-            });
-            console.log("success")
+        //     }, function(err) {
+        //         console.log(err)
+        //     });
+        //     console.log("success")
+        // };
+
+
+        // $ionicPlatform.ready(function() {
+
+        //     $ionicLoading.show({
+        //         template: '<ion-spinner icon="bubbles"></ion-spinner><br/>Acquiring location!'
+        //     });
+
+        //     var posOptions = {
+        //         enableHighAccuracy: true,
+        //         timeout: 20000,
+        //         maximumAge: 0
+        //     };
+        //     $cordovaGeolocation.getCurrentPosition(posOptions).then(function(position) {
+        //         var lat = position.coords.latitude;
+        //         var long = position.coords.longitude;
+
+        //         var myLatlng = new google.maps.LatLng(lat, long);
+
+        //         var mapOptions = {
+        //             center: myLatlng,
+        //             zoom: 16,
+        //             mapTypeId: google.maps.MapTypeId.ROADMAP
+        //         };
+
+        //         var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+        //         $scope.map = map;
+        //         $ionicLoading.hide();
+
+        //     }, function(err) {
+        //         $ionicLoading.hide();
+        //         console.log(err);
+        //     });
+        // });
+        $scope.address = ""
+
+
+        $scope.addressMap = function() {
+            // var address = $scope.address;
+
         };
         $scope.showAlert = function() {
+            var address = document.getElementById("addr").value;
+            $scope.address = address;
+            console.log(address)
+                // Initialize the Geocoder
+            geocoder = new google.maps.Geocoder();
+            if (geocoder) {
+                geocoder.geocode({
+                    'address': address
+                }, function(results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        // callback(results[0]);
+                        console.log(results[0].geometry.location.lat());
+                        console.log(results[0].geometry.location.lng());
+                        $scope.lat = results[0].geometry.location.lat();
+                        $scope.long = results[0].geometry.location.lng();
+                    }
+                });
+            }
+
+
+            $scope.name = document.getElementById("name").value;
+            $scope.type = document.getElementById("type").value;
+            $scope.number = document.getElementById("number").value;
+            $scope.area = document.getElementById("area").value;
+            $scope.email = document.getElementById("email").value;
+
+
             var alertPopup = $ionicPopup.alert({
                 title: 'Thank you',
                 template: "&nbsp;&nbsp;&nbsp;Your camp has been recorded"
@@ -163,7 +243,23 @@ angular.module('starter.controllers', [])
             alertPopup.then(function(res) {
                 console.log('pop up failure');
             });
+
+            var resultant = {
+                "campname": $scope.name,
+                "camptype": $scope.type,
+                "contact": $scope.number,
+                "location": $scope.area,
+                "address": $scope.address,
+                "email": $scope.email,
+                "latitude": $scope.lat,
+                "longitude": $scope.long
+
+            }
+            console.log(resultant);
         };
+
+
+
 
     })
     .controller('HomeCtrl', function($scope, $cordovaOauth, $http) {
@@ -174,7 +270,7 @@ angular.module('starter.controllers', [])
                     // results
                 }, function(error) {
                     // error
-                    console.log("Error Message " + error);
+                    console.log("Facebook failed: " + error);
                 });
             }
             // var url =;
@@ -187,7 +283,7 @@ angular.module('starter.controllers', [])
                 })
                 .error(function(status) {
                     //your code when fails
-                    console.log("wahid")
+                    console.log("Loding JSON failed:" + status)
                 });
             // $http.post("/check.json", { name: 'wahid' });
             $http({
