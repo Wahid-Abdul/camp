@@ -209,6 +209,11 @@ angular.module('starter.controllers', [])
 
         };
         $scope.showAlert = function() {
+            $scope.name = document.getElementById("name").value;
+            $scope.type = document.getElementById("type").value;
+            $scope.number = document.getElementById("number").value;
+            $scope.area = document.getElementById("area").value;
+            $scope.email = document.getElementById("email").value;
             var address = document.getElementById("addr").value;
             $scope.address = address;
             console.log(address)
@@ -224,16 +229,24 @@ angular.module('starter.controllers', [])
                         console.log(results[0].geometry.location.lng());
                         $scope.lat = results[0].geometry.location.lat();
                         $scope.long = results[0].geometry.location.lng();
+                        var resultant = {
+                            "campname": $scope.name,
+                            "camptype": $scope.type,
+                            "contact": $scope.number,
+                            "location": $scope.area,
+                            "address": $scope.address,
+                            "email": $scope.email,
+                            "latitude": $scope.lat,
+                            "longitude": $scope.long
+
+                        }
+                        console.log(resultant);
                     }
                 });
             }
 
 
-            $scope.name = document.getElementById("name").value;
-            $scope.type = document.getElementById("type").value;
-            $scope.number = document.getElementById("number").value;
-            $scope.area = document.getElementById("area").value;
-            $scope.email = document.getElementById("email").value;
+
 
 
             var alertPopup = $ionicPopup.alert({
@@ -244,18 +257,8 @@ angular.module('starter.controllers', [])
                 console.log('pop up failure');
             });
 
-            var resultant = {
-                "campname": $scope.name,
-                "camptype": $scope.type,
-                "contact": $scope.number,
-                "location": $scope.area,
-                "address": $scope.address,
-                "email": $scope.email,
-                "latitude": $scope.lat,
-                "longitude": $scope.long
 
-            }
-            console.log(resultant);
+
         };
 
 
