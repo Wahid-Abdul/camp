@@ -43,25 +43,14 @@ angular.module('starter.controllers', [])
     };
 })
 
-.controller('SearchCtrl', function($scope, $state, $stateParams, $ionicPopup) {
+.controller('SearchCtrl', function($scope, $state, $stateParams, $ionicPopup,$http,$ionicLoading) {
     $scope.mapBool = true;
-    // $http.get('https://camp-search.herokuapp.com/')
-    //     .success(function(status) {
-    //         //your code when success
-    //         console.log(status.Message)
-    //         $scope.friends = status.Message
-    //     })
-    //     .error(function(status) {
-    //         //your code when fails
-    //         console.log("Loding JSON failed:" + status)
-    //     });
-
     var uluru2 = {
         lat: 2.2434,
         lng: 0.21223
     };
     var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 5,
+        zoom: 10,
         center: uluru2
     });
     // var marker = new google.maps.Marker({
@@ -90,16 +79,16 @@ angular.module('starter.controllers', [])
     }
 
 
-    $scope.friends = [
-        { name: 'John', age: 25, gender: 'boy', number: 9894250259, mylat: 12.12122, mylong: 233.1221, address: 'The Business Centre 61 Wellfield Road Roath Cardiff CF24 3DG' },
-        { name: 'Jessie', age: 30, gender: 'girl', number: 9894250259, mylat: 21.12122, mylong: 5.1221, address: 'The Business Centre 61 Wellfield Road Roath Cardiff CF24 3DG' },
-        { name: 'Johanna', age: 28, gender: 'girl', number: 9894250259, mylat: 12.1232122, mylong: 6.1221, address: 'The Business Centre 61 Wellfield Road Roath Cardiff CF24 3DG' },
-        { name: 'Joy', age: 15, gender: 'girl', number: 9894250259, mylat: 12.456456122, mylong: 23.1221, address: 'The Business Centre 61 Wellfield Road Roath Cardiff CF24 3DG' },
-        { name: 'Mary', age: 28, gender: 'girl', number: 9894250259, mylat: 2.12122, mylong: 21.1221, address: 'The Business Centre 61 Wellfield Road Roath Cardiff CF24 3DG' },
-        { name: 'Peter', age: 95, gender: 'boy', number: 9894250259, mylat: 1.12122, mylong: 2.1221, address: 'The Business Centre 61 Wellfield Road Roath Cardiff CF24 3DG' },
-        { name: 'Peter', age: 95, gender: 'boy', number: 9894250259, mylat: 1.12122, mylong: 2.1221, address: 'The Business Centre 61 Wellfield Road Roath Cardiff CF24 3DG' },
-        { name: 'Peter', age: 95, gender: 'boy', number: 9894250259, mylat: 1.12122, mylong: 2.1221, address: 'The Business Centre 61 Wellfield Road Roath Cardiff CF24 3DG' }
-    ];
+    // $scope.friends = [
+    //     { name: 'John', age: 25, gender: 'boy', number: 9894250259, mylat: 12.12122, mylong: 233.1221, address: 'The Business Centre 61 Wellfield Road Roath Cardiff CF24 3DG' },
+    //     { name: 'Jessie', age: 30, gender: 'girl', number: 9894250259, mylat: 21.12122, mylong: 5.1221, address: 'The Business Centre 61 Wellfield Road Roath Cardiff CF24 3DG' },
+    //     { name: 'Johanna', age: 28, gender: 'girl', number: 9894250259, mylat: 12.1232122, mylong: 6.1221, address: 'The Business Centre 61 Wellfield Road Roath Cardiff CF24 3DG' },
+    //     { name: 'Joy', age: 15, gender: 'girl', number: 9894250259, mylat: 12.456456122, mylong: 23.1221, address: 'The Business Centre 61 Wellfield Road Roath Cardiff CF24 3DG' },
+    //     { name: 'Mary', age: 28, gender: 'girl', number: 9894250259, mylat: 2.12122, mylong: 21.1221, address: 'The Business Centre 61 Wellfield Road Roath Cardiff CF24 3DG' },
+    //     { name: 'Peter', age: 95, gender: 'boy', number: 9894250259, mylat: 1.12122, mylong: 2.1221, address: 'The Business Centre 61 Wellfield Road Roath Cardiff CF24 3DG' },
+    //     { name: 'Peter', age: 95, gender: 'boy', number: 9894250259, mylat: 1.12122, mylong: 2.1221, address: 'The Business Centre 61 Wellfield Road Roath Cardiff CF24 3DG' },
+    //     { name: 'Peter', age: 95, gender: 'boy', number: 9894250259, mylat: 1.12122, mylong: 2.1221, address: 'The Business Centre 61 Wellfield Road Roath Cardiff CF24 3DG' }
+    // ];
 
     $scope.CallNumber = function(inp) {
 
@@ -114,11 +103,31 @@ angular.module('starter.controllers', [])
 
     };
 
-
+   
 
     $scope.mapbool = function() {
+            $scope.type1 = document.getElementById("type1").value;
+            $scope.area1 = document.getElementById("area1").value;
+            $ionicLoading.show({
+                content: 'Loading',
+                animation: 'fade-in',
+                showBackdrop: true,
+                maxWidth: 200,
+                showDelay: 0
+        });
         $scope.mapBool = false;
-
+        var link = "https://camp-search.herokuapp.com/search/"+$scope.type1+"/"+$scope.area1;
+        console.log(link);
+        $http.get(link)
+        .then(function(response){
+            console.log(response.data);
+            $scope.friends = response.data;
+  
+        }),function myError(response) {
+            console.log( response.statusText);
+            
+        };
+        $ionicLoading.hide();
     };
 
     $scope.showAlert = function() {
@@ -137,7 +146,7 @@ angular.module('starter.controllers', [])
 })
 
 
-.controller('PostCtrl', function($scope, $cordovaCamera, $ionicPopup, $cordovaGeolocation, $ionicLoading, $ionicPlatform) {
+.controller('PostCtrl', function($scope,$http,$cordovaCamera, $ionicPopup, $cordovaGeolocation, $ionicLoading, $ionicPlatform) {
 
         // $scope.pictureBool = false;
         $scope.photoLine = " Take a picture"
@@ -204,11 +213,11 @@ angular.module('starter.controllers', [])
         $scope.address = ""
 
 
-        $scope.addressMap = function() {
+        $scope.showAlert = function() {
             // var address = $scope.address;
 
-        };
-        $scope.showAlert = function() {
+        
+        
             $scope.name = document.getElementById("name").value;
             $scope.type = document.getElementById("type").value;
             $scope.number = document.getElementById("number").value;
@@ -241,6 +250,10 @@ angular.module('starter.controllers', [])
 
                         }
                         console.log(resultant);
+                        var link = "https://camp-search.herokuapp.com/post"
+                        $http.post(link,resultant);
+
+                        
                     }
                 });
             }
@@ -254,17 +267,16 @@ angular.module('starter.controllers', [])
                 template: "&nbsp;&nbsp;&nbsp;Your camp has been recorded"
             });
             alertPopup.then(function(res) {
-                console.log('pop up failure');
+                console.log(res);
             });
-
+            $ionicLoading.hide();
 
 
         };
 
 
-
-
     })
+
     .controller('HomeCtrl', function($scope, $cordovaOauth, $http) {
         $scope.first = "";
         $scope.facebookLogin = function() {
@@ -277,31 +289,5 @@ angular.module('starter.controllers', [])
                 });
             }
             // var url =;
-        $scope.getReq = function() {
-            $http.get('https://camp-search.herokuapp.com/')
-                .success(function(status) {
-                    //your code when success
-                    console.log(status.Message)
-                    $scope.first = status.Message
-                })
-                .error(function(status) {
-                    //your code when fails
-                    console.log("Loding JSON failed:" + status)
-                });
-            // $http.post("/check.json", { name: 'wahid' });
-            $http({
-                    url: 'check.json',
-                    method: "POST",
-                    data: { name: 'wahid' }
-                })
-                .then(function(response) {
-                        // success
-                        console.log("success")
-                    },
-                    function(response) { // optional
-                        // failed
-                        console.log("Failureee:     " + response.data)
-                        $scope.first = response.data
-                    });
-        }
+        //
     });
