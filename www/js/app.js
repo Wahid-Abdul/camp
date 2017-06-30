@@ -6,7 +6,18 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'ngCordovaOauth'])
 
-.run(function($ionicPlatform) {
+.run(function($rootScope, $window, $ionicPlatform) {
+
+
+
+    $window.addEventListener("online", function() {
+        $rootScope.$apply(function() {
+            $rootScope.online = true;
+        });
+    }, false);
+
+
+
     $ionicPlatform.ready(function() {
         // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
         // for form inputs)

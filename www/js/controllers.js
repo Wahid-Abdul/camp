@@ -127,6 +127,7 @@ angular.module('starter.controllers', [])
                 function myError(response) {
                     console.log(response.statusText);
                     $ionicLoading.hide();
+                    $scope.mapBool = true;
                     var alertPopup = $ionicPopup.alert({
                         title: '<span>Error</span>',
                         template: 'Come back with valid input'
@@ -226,7 +227,7 @@ angular.module('starter.controllers', [])
         // var address = $scope.address;
 
 
-
+        $scope.date = document.getElementById("date").value;
         $scope.name = document.getElementById("name").value;
         $scope.type = document.getElementById("type").value;
         $scope.number = document.getElementById("number").value;
@@ -255,7 +256,8 @@ angular.module('starter.controllers', [])
                         "address": $scope.address,
                         "email": $scope.email,
                         "latitude": $scope.lat,
-                        "longitude": $scope.long
+                        "longitude": $scope.long,
+                        "date": $scope.date
 
                     }
                     console.log(resultant);
