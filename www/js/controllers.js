@@ -139,26 +139,6 @@ angular.module('starter.controllers', [])
                     });
 
                 });
-                    for (i = 0; i < friends.length; i++) {
-                        var position = new google.maps.LatLng(friends[i][1], friends[i][2]);
-                        bounds.extend(position);
-                        marker = new google.maps.Marker({
-                            position: position,
-                            map: map,
-                            title: markers[i][0]
-                        });
-
-                        // Allow each marker to have an info window    
-                        google.maps.event.addListener(marker, 'click', (function (marker, i) {
-                            return function () {
-                                infoWindow.setContent(infoWindowContent[i][0]);
-                                infoWindow.open(map, marker);
-                            }
-                        })(marker, i));
-
-                        // Automatically center the map fitting all markers on the screen
-                        map.fitBounds(bounds);
-                    }
 
     };
 
@@ -182,7 +162,66 @@ angular.module('starter.controllers', [])
 
     // $scope.pictureBool = false;
     $scope.photoLine = " Take a picture"
-   
+        // $scope.takePicture = function() {
+        //     $scope.photoLine = "Retake photo";
+
+    //     $cordovaCamera.getPicture({
+    //         quality: 50,
+    //         destinationType: Camera.DestinationType.DATA_URL,
+    //         sourceType: Camera.PictureSourceType.CAMERA,
+    //         allowEdit: true,
+    //         encodingType: Camera.EncodingType.JPEG,
+    //         targetWidth: 300,
+    //         targetHeight: 300,
+    //         popoverOptions: CameraPopoverOptions,
+    //         saveToPhotoAlbum: true,
+    //         correctOrientation: true
+    //     }).then(function(imageData) {
+    //         $scope.pictureBool = true;
+    //         var image = document.getElementById('myImage');
+    //         image.src = "data:image/jpeg;base64," + imageData;
+
+
+    //     }, function(err) {
+    //         console.log(err)
+    //     });
+    //     console.log("success")
+    // };
+
+
+    // $ionicPlatform.ready(function() {
+
+    //     $ionicLoading.show({
+    //         template: '<ion-spinner icon="bubbles"></ion-spinner><br/>Acquiring location!'
+    //     });
+
+    //     var posOptions = {
+    //         enableHighAccuracy: true,
+    //         timeout: 20000,
+    //         maximumAge: 0
+    //     };
+    //     $cordovaGeolocation.getCurrentPosition(posOptions).then(function(position) {
+    //         var lat = position.coords.latitude;
+    //         var long = position.coords.longitude;
+
+    //         var myLatlng = new google.maps.LatLng(lat, long);
+
+    //         var mapOptions = {
+    //             center: myLatlng,
+    //             zoom: 16,
+    //             mapTypeId: google.maps.MapTypeId.ROADMAP
+    //         };
+
+    //         var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+    //         $scope.map = map;
+    //         $ionicLoading.hide();
+
+    //     }, function(err) {
+    //         $ionicLoading.hide();
+    //         console.log(err);
+    //     });
+    // });
     $scope.address = ""
 
 
