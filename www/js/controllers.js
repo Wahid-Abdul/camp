@@ -45,7 +45,44 @@ angular.module('starter.controllers', [])
         };
     })
 
-.controller('SearchCtrl', function($scope, $state, $stateParams, $ionicPopup, $http, $ionicLoading) {
+.controller('SearchCtrl', function($scope, $state, $stateParams, $ionicPopup, $http, $ionicLoading, $cordovaGeolocation) {
+    $scope.checking = 0.0
+        //get location
+    var posOptions = { timeout: 10000, enableHighAccuracy: false };
+    $cordovaGeolocation
+        .getCurrentPosition(posOptions)
+        .then(function(position) {
+            var lat = position.coords.latitude
+            var long = position.coords.longitude
+        }, function(err) {
+            // error
+            console.log("Wahid:geolocation failed")
+        });
+
+
+    var watchOptions = {
+        timeout: 3000,
+        enableHighAccuracy: false // may cause errors if true
+    };
+
+    var watch = $cordovaGeolocation.watchPosition(watchOptions);
+    watch.then(
+        null,
+        function(err) {
+            // error
+        },
+        function(position) {
+            var lat = position.coords.latitude
+            var long = position.coords.longitude
+            console.log("\nLAT:" + lat)
+            $scope.checking = lat
+        });
+    watch.clearWatch();
+
+
+
+
+
     $scope.mapBool = true;
     var uluru2 = {
         lat: 2.2434,

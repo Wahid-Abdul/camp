@@ -42,15 +42,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'ngCordo
             templateUrl: 'templates/menu.html',
             controller: 'AppCtrl'
         })
-        .state('app.login', {
-            url: '/login',
-            views: {
-                'menuContent': {
-                    templateUrl: 'templates/login.html',
-                    controller: 'LoginCtrl'
-                }
-            }
-        })
+        // .state('app.login', {
+        //     url: '/login',
+        //     views: {
+        //         'menuContent': {
+        //             templateUrl: 'templates/login.html',
+        //             controller: 'LoginCtrl'
+        //         }
+        //     }
+        // })
         .state('app.search', {
             url: '/search',
             views: {

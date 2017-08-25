@@ -17,7 +17,8 @@
         "gulp-rename": "^1.2.0",
         "gulp-sass": "^2.0.4",
         "ionic-plugin-keyboard": "^2.2.1",
-        "oauth-phonegap": "git+https://github.com/oauth-io/oauth-phonegap.git"
+        "oauth-phonegap": "git+https://github.com/oauth-io/oauth-phonegap.git",
+        "cordova-plugin-geolocation": "~2.4.3"
     },
     "devDependencies": {
         "@ionic/cli-plugin-gulp": "1.0.1",
@@ -43,7 +44,8 @@
             "cordova-plugin-splashscreen": {},
             "cordova-plugin-statusbar": {},
             "cordova-plugin-whitelist": {},
-            "ionic-plugin-keyboard": {}
+            "ionic-plugin-keyboard": {},
+            "cordova-plugin-geolocation": {}
         },
         "platforms": [
             "android"
