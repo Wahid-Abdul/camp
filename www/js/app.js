@@ -37,11 +37,11 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'ngCordo
     $stateProvider
 
         .state('app', {
-        url: '/app',
-        abstract: true,
-        templateUrl: 'templates/menu.html',
-        controller: 'AppCtrl'
-    })
+            url: '/app',
+            abstract: true,
+            templateUrl: 'templates/menu.html',
+            controller: 'AppCtrl'
+        })
         .state('app.login', {
             url: '/login',
             views: {
@@ -51,7 +51,7 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'ngCordo
                 }
             }
         })
-    .state('app.search', {
+        .state('app.search', {
             url: '/search',
             views: {
                 'menuContent': {
@@ -91,5 +91,5 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'ngCordo
 
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/app/login');
+    $urlRouterProvider.otherwise('/app/home');
 });
