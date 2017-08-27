@@ -46,8 +46,18 @@ angular.module('starter.controllers', [])
     })
 
 .controller('SearchCtrl', function($scope, $state, $stateParams, $ionicPopup, $http, $ionicLoading, $cordovaGeolocation) {
+
     $scope.checking = 0.0
         //get location
+    map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 11,
+        center: new google.maps.LatLng(13.3241, 80.1512),
+        mapTypeId: 'roadmap'
+    });
+    var marker = new google.maps.Marker({
+        position: new google.maps.LatLng(13.3241, 80.1512),
+        map: map
+    });
     var posOptions = { timeout: 10000, enableHighAccuracy: false };
     $cordovaGeolocation
         .getCurrentPosition(posOptions)
@@ -75,7 +85,7 @@ angular.module('starter.controllers', [])
             var lat = position.coords.latitude
             var long = position.coords.longitude
             console.log("\nLAT:" + lat)
-            $scope.checking = lat
+            $scope.checking = ""
         });
     watch.clearWatch();
 
@@ -84,14 +94,7 @@ angular.module('starter.controllers', [])
 
 
     $scope.mapBool = true;
-    var uluru2 = {
-        lat: 2.2434,
-        lng: 0.21223
-    };
-    var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 5,
-        center: uluru2
-    });
+
     // var marker = new google.maps.Marker({
     //     position: uluru2,
     //     map: map
@@ -100,20 +103,54 @@ angular.module('starter.controllers', [])
 
 
     $scope.plotter = function(a, b) {
-        $scope.latitude = a;
-        $scope.longitude = b;
-        var uluru = {
-            lat: $scope.latitude,
-            lng: $scope.longitude
+
+
+        var directionsDisplay;
+        var directionsService = new google.maps.DirectionsService();
+        var map;
+
+
+        directionsDisplay = new google.maps.DirectionsRenderer();
+        // var chicago = new google.maps.LatLng(37.334818, -121.884886);
+        var latlng = new google.maps.LatLng(39.305, -76.617);
+        var mapOptions = {
+            zoom: 12,
+            center: latlng
         };
-        var map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 16,
-            center: uluru
+        map = new google.maps.Map(document.getElementById('map'), mapOptions);
+        directionsDisplay.setMap(map);
+        // google.maps.event.addDomListener(document.getElementById('routebtn'), 'click', calcRoute);
+
+
+
+
+
+        var start = new google.maps.LatLng(13.3241, 80.1512);
+        var end = new google.maps.LatLng(a, b);
+        // var end2 = new google.maps.LatLng(13.3241, 80.1512);
+        var bounds = new google.maps.LatLngBounds();
+        bounds.extend(start);
+        bounds.extend(end);
+        // bounds.extend(end2);
+        map.fitBounds(bounds);
+        var request = {
+            origin: start,
+            destination: end,
+            travelMode: google.maps.TravelMode.DRIVING
+        };
+        directionsService.route(request, function(response, status) {
+            if (status == google.maps.DirectionsStatus.OK) {
+                directionsDisplay.setDirections(response);
+                directionsDisplay.setMap(map);
+            } else {
+                alert("Directions Request from " + start.toUrlValue(6) + " to " + end.toUrlValue(6) + " failed: " + status);
+            }
         });
-        var marker = new google.maps.Marker({
-            position: uluru,
-            map: map
-        });
+
+
+        google.maps.event.addDomListener(window, 'load', initialize);
+
+
 
     }
 
@@ -161,7 +198,35 @@ angular.module('starter.controllers', [])
             .then(function(response) {
                     console.log(response.data);
                     $scope.friends = response.data;
+                    console.log($scope.friends[0].latitude)
+
                     $ionicLoading.hide();
+                    var uluru2 = {
+                        lat: 0.0,
+                        lng: 0.0
+                    };
+
+                    // var map = new google.maps.Map(document.getElementById('map'), {
+                    //     zoom: 6,
+                    //     center: uluru2
+                    // });
+
+                    var marker;
+                    for (var i = 0; i < $scope.friends.length; i++) {
+                        console.log("\nHiiiii" + i)
+                        console.log(typeof parseFloat($scope.friends[i].latitude))
+                        uluru2.lat = parseFloat($scope.friends[i].latitude)
+                        uluru2.lng = parseFloat($scope.friends[i].longitude)
+                        console.log("@HIIII @")
+                        console.log(uluru2)
+                        marker = new google.maps.Marker({
+                            position: uluru2,
+                            map: map
+                        });
+                    }
+
+
+
                 },
                 function myError(response) {
                     console.log(response.statusText);
@@ -169,7 +234,7 @@ angular.module('starter.controllers', [])
                     $scope.mapBool = true;
                     var alertPopup = $ionicPopup.alert({
                         title: '<span>Error</span>',
-                        template: 'Come back with valid input'
+                        template: 'No matching entries'
                     });
                     alertPopup.then(function(res) {
                         console.log('pop up not working');
@@ -271,56 +336,70 @@ angular.module('starter.controllers', [])
         $scope.type = document.getElementById("type").value;
         $scope.number = document.getElementById("number").value;
         $scope.area = document.getElementById("area").value;
-        $scope.email = document.getElementById("email").value;
+        // $scope.email = document.getElementById("email").value;
+        $scope.email = "abdul@hk.com"
         var address = document.getElementById("addr").value;
-        $scope.address = address;
-        console.log(address)
-            // Initialize the Geocoder
-        geocoder = new google.maps.Geocoder();
-        if (geocoder) {
-            geocoder.geocode({
-                'address': address
-            }, function(results, status) {
-                if (status == google.maps.GeocoderStatus.OK) {
-                    // callback(results[0]);
-                    console.log(results[0].geometry.location.lat());
-                    console.log(results[0].geometry.location.lng());
-                    $scope.lat = results[0].geometry.location.lat();
-                    $scope.long = results[0].geometry.location.lng();
-                    var resultant = {
-                        "campname": $scope.name,
-                        "camptype": $scope.type,
-                        "contact": $scope.number,
-                        "location": $scope.area,
-                        "address": $scope.address,
-                        "email": $scope.email,
-                        "latitude": $scope.lat,
-                        "longitude": $scope.long,
-                        "date": $scope.date
+        if (address.length <= 0) {
+            var alertPopup = $ionicPopup.alert({
+                title: '<span>Error</span>',
+                template: 'Invalid address'
+            });
+            document.getElementById('addr').focus();
+
+        } else if (date == "") {
+            var alertPopup = $ionicPopup.alert({
+                title: '<span>Error</span>',
+                template: 'Invalid date'
+            });
+        } else {
+            $scope.address = address;
+            console.log(address)
+                // Initialize the Geocoder
+            geocoder = new google.maps.Geocoder();
+            if (geocoder) {
+                geocoder.geocode({
+                    'address': address
+                }, function(results, status) {
+                    if (status == google.maps.GeocoderStatus.OK) {
+                        // callback(results[0]);
+                        console.log(results[0].geometry.location.lat());
+                        console.log(results[0].geometry.location.lng());
+                        $scope.lat = results[0].geometry.location.lat();
+                        $scope.long = results[0].geometry.location.lng();
+                        var resultant = {
+                            "campname": $scope.name,
+                            "camptype": $scope.type,
+                            "contact": $scope.number,
+                            "location": $scope.area,
+                            "address": $scope.address,
+                            "email": $scope.email,
+                            "latitude": $scope.lat,
+                            "longitude": $scope.long,
+                            "date": $scope.date
+
+                        }
+                        console.log(resultant);
+                        var link = "https://camp-search.herokuapp.com/post"
+                        $http.post(link, resultant);
+
 
                     }
-                    console.log(resultant);
-                    var link = "https://camp-search.herokuapp.com/post"
-                    $http.post(link, resultant);
+                });
+            }
 
 
-                }
+
+
+
+            var alertPopup = $ionicPopup.alert({
+                title: 'Thank you',
+                template: "&nbsp;&nbsp;&nbsp;Your camp has been recorded"
             });
+            alertPopup.then(function(res) {
+                console.log(res);
+            });
+            $ionicLoading.hide();
         }
-
-
-
-
-
-        var alertPopup = $ionicPopup.alert({
-            title: 'Thank you',
-            template: "&nbsp;&nbsp;&nbsp;Your camp has been recorded"
-        });
-        alertPopup.then(function(res) {
-            console.log(res);
-        });
-        $ionicLoading.hide();
-
 
     };
 

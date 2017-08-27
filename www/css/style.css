@@ -1,1 +1,31 @@
 /* Empty. Add your own CSS if you like */
+
+.bbounce {
+    position: absolute;
+    /* margin: auto; */
+    color: red;
+    -webkit-animation: bounce 2s infinite ease-in-out;
+}
+
+@-webkit-keyframes bounce {
+    0%,
+    20%,
+    60%,
+    100% {
+        -webkit-transform: translateY(0);
+    }
+    40% {
+        -webkit-transform: translateY(-20px);
+    }
+    80% {
+        -webkit-transform: translateY(-10px);
+    }
+}
+
+input:active {
+    border: 2px solid aqua;
+}
+
+input::invalid {
+    border: 2px solid red
+}
