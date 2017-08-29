@@ -42,15 +42,15 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'ngCordo
             templateUrl: 'templates/menu.html',
             controller: 'AppCtrl'
         })
-        // .state('app.login', {
-        //     url: '/login',
-        //     views: {
-        //         'menuContent': {
-        //             templateUrl: 'templates/login.html',
-        //             controller: 'LoginCtrl'
-        //         }
-        //     }
-        // })
+        .state('app.signup', {
+            url: '/signup',
+            views: {
+                'menuContent': {
+                    templateUrl: 'templates/signup.html',
+                    controller: 'SignupCtrl'
+                }
+            }
+        })
         .state('app.search', {
             url: '/search',
             views: {
@@ -91,5 +91,5 @@ angular.module('starter', ['ionic', 'starter.controllers', 'ngCordova', 'ngCordo
 
 
     // if none of the above states are matched, use this as the fallback
-    $urlRouterProvider.otherwise('/app/home');
+    $urlRouterProvider.otherwise('/app/signup');
 });

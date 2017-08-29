@@ -262,164 +262,182 @@ angular.module('starter.controllers', [])
 
 .controller('PostCtrl', function($scope, $http, $cordovaCamera, $ionicPopup, $cordovaGeolocation, $ionicLoading, $ionicPlatform) {
 
-    // $scope.pictureBool = false;
-    $scope.photoLine = " Take a picture"
-        // $scope.takePicture = function() {
-        //     $scope.photoLine = "Retake photo";
+        // $scope.pictureBool = false;
+        $scope.photoLine = " Take a picture"
+            // $scope.takePicture = function() {
+            //     $scope.photoLine = "Retake photo";
 
-    //     $cordovaCamera.getPicture({
-    //         quality: 50,
-    //         destinationType: Camera.DestinationType.DATA_URL,
-    //         sourceType: Camera.PictureSourceType.CAMERA,
-    //         allowEdit: true,
-    //         encodingType: Camera.EncodingType.JPEG,
-    //         targetWidth: 300,
-    //         targetHeight: 300,
-    //         popoverOptions: CameraPopoverOptions,
-    //         saveToPhotoAlbum: true,
-    //         correctOrientation: true
-    //     }).then(function(imageData) {
-    //         $scope.pictureBool = true;
-    //         var image = document.getElementById('myImage');
-    //         image.src = "data:image/jpeg;base64," + imageData;
-
-
-    //     }, function(err) {
-    //         console.log(err)
-    //     });
-    //     console.log("success")
-    // };
+        //     $cordovaCamera.getPicture({
+        //         quality: 50,
+        //         destinationType: Camera.DestinationType.DATA_URL,
+        //         sourceType: Camera.PictureSourceType.CAMERA,
+        //         allowEdit: true,
+        //         encodingType: Camera.EncodingType.JPEG,
+        //         targetWidth: 300,
+        //         targetHeight: 300,
+        //         popoverOptions: CameraPopoverOptions,
+        //         saveToPhotoAlbum: true,
+        //         correctOrientation: true
+        //     }).then(function(imageData) {
+        //         $scope.pictureBool = true;
+        //         var image = document.getElementById('myImage');
+        //         image.src = "data:image/jpeg;base64," + imageData;
 
 
-    // $ionicPlatform.ready(function() {
-
-    //     $ionicLoading.show({
-    //         template: '<ion-spinner icon="bubbles"></ion-spinner><br/>Acquiring location!'
-    //     });
-
-    //     var posOptions = {
-    //         enableHighAccuracy: true,
-    //         timeout: 20000,
-    //         maximumAge: 0
-    //     };
-    //     $cordovaGeolocation.getCurrentPosition(posOptions).then(function(position) {
-    //         var lat = position.coords.latitude;
-    //         var long = position.coords.longitude;
-
-    //         var myLatlng = new google.maps.LatLng(lat, long);
-
-    //         var mapOptions = {
-    //             center: myLatlng,
-    //             zoom: 16,
-    //             mapTypeId: google.maps.MapTypeId.ROADMAP
-    //         };
-
-    //         var map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
-    //         $scope.map = map;
-    //         $ionicLoading.hide();
-
-    //     }, function(err) {
-    //         $ionicLoading.hide();
-    //         console.log(err);
-    //     });
-    // });
-    $scope.address = ""
+        //     }, function(err) {
+        //         console.log(err)
+        //     });
+        //     console.log("success")
+        // };
 
 
-    $scope.showAlert = function() {
-        // var address = $scope.address;
+        // $ionicPlatform.ready(function() {
+
+        //     $ionicLoading.show({
+        //         template: '<ion-spinner icon="bubbles"></ion-spinner><br/>Acquiring location!'
+        //     });
+
+        //     var posOptions = {
+        //         enableHighAccuracy: true,
+        //         timeout: 20000,
+        //         maximumAge: 0
+        //     };
+        //     $cordovaGeolocation.getCurrentPosition(posOptions).then(function(position) {
+        //         var lat = position.coords.latitude;
+        //         var long = position.coords.longitude;
+
+        //         var myLatlng = new google.maps.LatLng(lat, long);
+
+        //         var mapOptions = {
+        //             center: myLatlng,
+        //             zoom: 16,
+        //             mapTypeId: google.maps.MapTypeId.ROADMAP
+        //         };
+
+        //         var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+        //         $scope.map = map;
+        //         $ionicLoading.hide();
+
+        //     }, function(err) {
+        //         $ionicLoading.hide();
+        //         console.log(err);
+        //     });
+        // });
+        $scope.address = ""
 
 
-        $scope.date = document.getElementById("date").value;
-        $scope.name = document.getElementById("name").value;
-        $scope.type = document.getElementById("type").value;
-        $scope.number = document.getElementById("number").value;
-        $scope.area = document.getElementById("area").value;
-        // $scope.email = document.getElementById("email").value;
-        $scope.email = "abdul@hk.com"
-        var address = document.getElementById("addr").value;
-        if (address.length <= 0) {
-            var alertPopup = $ionicPopup.alert({
-                title: '<span>Error</span>',
-                template: 'Invalid address'
-            });
-            document.getElementById('addr').focus();
+        $scope.showAlert = function() {
+            // var address = $scope.address;
 
-        } else if (date == "") {
-            var alertPopup = $ionicPopup.alert({
-                title: '<span>Error</span>',
-                template: 'Invalid date'
-            });
-        } else {
-            $scope.address = address;
-            console.log(address)
-                // Initialize the Geocoder
-            geocoder = new google.maps.Geocoder();
-            if (geocoder) {
-                geocoder.geocode({
-                    'address': address
-                }, function(results, status) {
-                    if (status == google.maps.GeocoderStatus.OK) {
-                        // callback(results[0]);
-                        console.log(results[0].geometry.location.lat());
-                        console.log(results[0].geometry.location.lng());
-                        $scope.lat = results[0].geometry.location.lat();
-                        $scope.long = results[0].geometry.location.lng();
-                        var resultant = {
-                            "campname": $scope.name,
-                            "camptype": $scope.type,
-                            "contact": $scope.number,
-                            "location": $scope.area,
-                            "address": $scope.address,
-                            "email": $scope.email,
-                            "latitude": $scope.lat,
-                            "longitude": $scope.long,
-                            "date": $scope.date
+
+            $scope.date = document.getElementById("date").value;
+            $scope.name = document.getElementById("name").value;
+            $scope.type = document.getElementById("type").value;
+            $scope.number = document.getElementById("number").value;
+            $scope.area = document.getElementById("area").value;
+            // $scope.email = document.getElementById("email").value;
+            $scope.email = "abdul@hk.com"
+            var address = document.getElementById("addr").value;
+            if (address.length <= 0) {
+                var alertPopup = $ionicPopup.alert({
+                    title: '<span>Error</span>',
+                    template: 'Invalid address'
+                });
+                document.getElementById('addr').focus();
+
+            } else if (date == "") {
+                var alertPopup = $ionicPopup.alert({
+                    title: '<span>Error</span>',
+                    template: 'Invalid date'
+                });
+            } else {
+                $scope.address = address;
+                console.log(address)
+                    // Initialize the Geocoder
+                geocoder = new google.maps.Geocoder();
+                if (geocoder) {
+                    geocoder.geocode({
+                        'address': address
+                    }, function(results, status) {
+                        if (status == google.maps.GeocoderStatus.OK) {
+                            // callback(results[0]);
+                            console.log(results[0].geometry.location.lat());
+                            console.log(results[0].geometry.location.lng());
+                            $scope.lat = results[0].geometry.location.lat();
+                            $scope.long = results[0].geometry.location.lng();
+                            var resultant = {
+                                "campname": $scope.name,
+                                "camptype": $scope.type,
+                                "contact": $scope.number,
+                                "location": $scope.area,
+                                "address": $scope.address,
+                                "email": $scope.email,
+                                "latitude": $scope.lat,
+                                "longitude": $scope.long,
+                                "date": $scope.date
+
+                            }
+                            console.log(resultant);
+                            var link = "https://camp-search.herokuapp.com/post"
+                            $http.post(link, resultant);
+
 
                         }
-                        console.log(resultant);
-                        var link = "https://camp-search.herokuapp.com/post"
-                        $http.post(link, resultant);
+                    });
+                }
 
 
-                    }
+
+
+
+                var alertPopup = $ionicPopup.alert({
+                    title: 'Thank you',
+                    template: "&nbsp;&nbsp;&nbsp;Your camp has been recorded"
                 });
+                alertPopup.then(function(res) {
+                    console.log(res);
+                });
+                $ionicLoading.hide();
             }
 
+        };
+
+
+    })
+    .controller('SignupCtrl', function($scope, $http) {
+        a = { 'password2': '' }
 
 
 
 
-            var alertPopup = $ionicPopup.alert({
-                title: 'Thank you',
-                template: "&nbsp;&nbsp;&nbsp;Your camp has been recorded"
-            });
-            alertPopup.then(function(res) {
-                console.log(res);
-            });
-            $ionicLoading.hide();
-        }
+        $scope.$watch('a.password2', function() {
+            console.log("Found")
+        });
+        $scope.$watch('username', function() {});
 
-    };
+        // $scope.postButton = function(user, pswd) {
 
+        //     console.log({ 'username': user, 'password': pswd })
+        //         // var link = "https://camp-search.herokuapp.com/signup"
+        //         // $http.post("aa", { 'username': user, 'password': pswd });
 
-})
+        // }
+    })
+    .controller('HomeCtrl', function($scope, $cordovaOauth, $http) {
 
-.controller('HomeCtrl', function($scope, $cordovaOauth, $http) {
+        // $ionicSideMenuDelegate.canDragContent(false)
 
-    // $ionicSideMenuDelegate.canDragContent(false)
-
-    $scope.first = "";
-    $scope.facebookLogin = function() {
-            $cordovaOauth.facebook("1696400467327617", ["email"]).then(function(result) {
-                $scope.data = result.access_token;
-                // results
-            }, function(error) {
-                // error
-                console.log("Facebook failed: " + error);
-            });
-        }
-        // var url =;
-        //
-});
+        $scope.first = "";
+        $scope.facebookLogin = function() {
+                $cordovaOauth.facebook("1696400467327617", ["email"]).then(function(result) {
+                    $scope.data = result.access_token;
+                    // results
+                }, function(error) {
+                    // error
+                    console.log("Facebook failed: " + error);
+                });
+            }
+            // var url =;
+            //
+    });
