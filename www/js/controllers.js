@@ -410,10 +410,11 @@ angular.module('starter.controllers', [])
         $scope.username = ""
         $scope.password1 = ""
         $scope.password2 = ""
+        document.getElementById('butId').style.pointerEvents = "unset";
         $scope.checkCorrect = function(pass1, pass2) {
 
             // console.log("Finally")
-            if (pass1 === pass2 && pass1.length > 0) {
+            if (pass1 === pass2) {
                 console.log("True")
                 document.getElementById('passId').style.borderColor = "rgba(0, 255, 0, 0.2)"
                 $scope.but = false
