@@ -406,29 +406,38 @@ angular.module('starter.controllers', [])
 
     })
     .controller('SignupCtrl', function($scope, $http) {
-        a = { 'password2': '' }
+        $scope.but = true
+        $scope.username = ""
+        $scope.password1 = ""
+        $scope.password2 = ""
+        $scope.checkCorrect = function(pass1, pass2) {
+
+            // console.log("Finally")
+            if (pass1 === pass2) {
+                console.log("True")
+                document.getElementById('passId').style.borderColor = "rgba(0, 255, 0, 0.2)"
+                $scope.but = false
+            } else {
+                document.getElementById('passId').style.borderColor = "rgba(255, 0, 0, 0.3)"
+                console.log("False")
+                $scope.but = true
+
+
+                document.getElementById('butId').style.pointerEvents = "unset";
+
+
+            }
+        }
 
 
 
 
-        $scope.$watch('a.password2', function() {
-            console.log("Found")
-        });
-        $scope.$watch('username', function() {});
-
-        // $scope.postButton = function(user, pswd) {
-
-        //     console.log({ 'username': user, 'password': pswd })
-        //         // var link = "https://camp-search.herokuapp.com/signup"
-        //         // $http.post("aa", { 'username': user, 'password': pswd });
-
-        // }
     })
     .controller('HomeCtrl', function($scope, $cordovaOauth, $http) {
 
         // $ionicSideMenuDelegate.canDragContent(false)
-
         $scope.first = "";
+
         $scope.facebookLogin = function() {
                 $cordovaOauth.facebook("1696400467327617", ["email"]).then(function(result) {
                     $scope.data = result.access_token;

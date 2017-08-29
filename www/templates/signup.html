@@ -1,4 +1,4 @@
-<ion-view view-title="Home" style="background:url(img/nature.jpg);background-repeat: no-repeat;background-position:0 0;background-size:cover;" hide-nav-bar="true" ng-controller="SignupCtrl">
+<ion-view view-title="Home" style="background:url(img/nature.jpg);background-repeat: no-repeat;background-position:0 0;background-size:cover;" hide-nav-bar="true" ng-app="starter" ng-controller="SignupCtrl">
     <ion-content style="margin :0 auto;padding-top:20vh;">
         <div class="title " style="text-align: center;font-weight: bold" style="margin-top: 30%">
             <span style="color:white"><h1>HEALTH<br>CAMPS<h1></span>
@@ -17,14 +17,14 @@
             </label>
 
 
-            <label class="item item-input" style="width: 90%;margin-left: 5%;border-radius: 20px;">
+            <label class="item item-input" style="width: 90%;margin-left: 5%;border-radius: 20px;" id="passId">
                     <span class="input-label">Repeat </span>
-                    <input type="password" ng-model="a.password2">
+                    <input type="password" ng-model="password2" ng-change="checkCorrect(password1,password2)">
                 </label>
 
 
             <a ng-href="#/app/post " style="text-decoration: none ">
-                <button class="button button-block button-balanced ion-ios-plus-outline " style="width: 90%;margin-left: 5%;border-radius: 20px">
+                <button class="button button-block button-balanced ion-ios-plus-outline " style="width: 90%;margin-left: 5%;border-radius: 20px" ng-disabled="but" id="butId">
                         SIGNUP{{username}}  {{password1}}
                 </button>
             </a>
