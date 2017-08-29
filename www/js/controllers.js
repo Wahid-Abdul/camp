@@ -413,7 +413,7 @@ angular.module('starter.controllers', [])
         $scope.checkCorrect = function(pass1, pass2) {
 
             // console.log("Finally")
-            if (pass1 === pass2) {
+            if (pass1 === pass2 && pass1.length > 0) {
                 console.log("True")
                 document.getElementById('passId').style.borderColor = "rgba(0, 255, 0, 0.2)"
                 $scope.but = false
